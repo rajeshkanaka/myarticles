@@ -67,7 +67,7 @@ As a developer, you might be thinking, "This sounds cool, but how does it affect
 
 Understanding Transformers can open up new possibilities in your projects, whether you're building a smart search feature or experimenting with AI-assisted coding.
 
-## So, now that we know what a Transformer is and why it's a big deal, you might be wondering: "How exactly does this magic work?" That's exactly what we'll unpack in the next section. Get ready to dive into the key components that make Transformers tick!
+So, now that we know what a Transformer is and why it's a big deal, you might be wondering: "How exactly does this magic work?" That's exactly what we'll unpack in the next section. Get ready to dive into the key components that make Transformers tick!
 
 \newpage
 
@@ -76,8 +76,10 @@ Understanding Transformers can open up new possibilities in your projects, wheth
 Imagine building a sophisticated language processing pipeline in your favorite programming language. The Transformer architecture is like that pipeline, with each component playing a crucial role. Let's break it down:
 
 Welcome to the fascinating world of the Transformer architecture, a game-changer in AI that's powering everything from chatbots to language translation. Let's break down our diagram in a way that's easy to understand, even if you're not a tech expert:
+\newpage
 
-![alt text](image-1.png)
+![Core Components of a Transformer](image-1.png)
+\newpage
 
 ## 1. Input Embeddings
 
@@ -135,6 +137,9 @@ In our next section, we'll trace how a piece of text flows through these compone
 \newpage
 
 ## How Transformers Work: A Simple Walkthrough
+
+![How Transformers Work: A Walkthrough](image-3.png)
+\newpage
 
 Imagine you're building a pipeline to process and understand text. Let's walk through how a Transformer, the powerhouse of modern NLP, would handle the sentence: "The cat sat on the mat."
 
@@ -629,84 +634,289 @@ However, with great power comes great responsibility. As Transformers become mor
 In essence, Transformers have not just raised the bar for what's possible in AI—they've fundamentally changed the game. For developers, this opens up exciting new possibilities, but also demands a new level of awareness and responsibility in how we build and deploy AI systems.
 \newpage
 
-## Getting Started with Transformers
+## Transformer in Action: A Practical Example
 
-Ready to harness the power of Transformers in your projects? Here's a comprehensive guide to help you get started:
+Let's bring the Transformer architecture to life with a practical, easy-to-understand example. We'll create a simple Transformer model for English to French translation. This example will demonstrate key concepts like self-attention, positional encoding, and the feed-forward network.
 
-1. Popular Transformer Libraries
+### Setup
 
-   - Hugging Face Transformers: The go-to library for state-of-the-art pre-trained models. It provides an intuitive API for using and fine-tuning models.
-   - TensorFlow and PyTorch: Both offer Transformer implementations. Choose based on your familiarity and project requirements.
-   - OpenAI GPT: If you're interested in large-scale generative models, OpenAI's GPT series is worth exploring.
+First, let's import the necessary libraries and set up our environment:
 
-2. Simple Example: Using a Pre-trained Model
-   Let's walk through a basic example using Hugging Face Transformers for sentiment analysis:
+```python
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+import matplotlib.pyplot as plt
 
-   ```python
-   from transformers import pipeline
+# Set random seed for reproducibility
+np.random.seed(42)
+tf.random.set_seed(42)
+```
 
-   # Load a pre-trained sentiment analysis model
-   sentiment_analyzer = pipeline("sentiment-analysis")
+### Data Preparation
 
-   # Analyze some text
-   result = sentiment_analyzer("I love working with Transformers!")
-   print(result)
-   ```
+We'll use a small dataset for demonstration purposes:
 
-   Explanation:
+```python
+# Sample data
+english_sentences = [
+    "Hello",
+    "How are you",
+    "Thank you",
+    "Goodbye"
+]
+french_sentences = [
+    "Bonjour",
+    "Comment allez-vous",
+    "Merci",
+    "Au revoir"
+]
 
-   - We import the `pipeline` function from Transformers.
-   - We create a sentiment analysis pipeline, which automatically loads a pre-trained model.
-   - We pass our text to the analyzer, which returns the sentiment and its confidence score.
+# Create vocabularies
+english_vocab = sorted(set(" ".join(english_sentences).lower().split()))
+french_vocab = sorted(set(" ".join(french_sentences).lower().split()))
 
-   Expected output:
+# Create word-to-index and index-to-word mappings
+eng_to_idx = {word: idx for idx, word in enumerate(english_vocab)}
+idx_to_eng = {idx: word for word, idx in eng_to_idx.items()}
+fr_to_idx = {word: idx for idx, word in enumerate(french_vocab)}
+idx_to_fr = {idx: word for word, idx in fr_to_idx.items()}
 
-   ```
-   [{'label': 'POSITIVE', 'score': 0.9998}]
-   ```
 
-   This indicates a positive sentiment with a 99.98% confidence.
 
-3. Resources for Further Learning
+# Tokenize sentences
+eng_tokenized = [[eng_to_idx[word.lower()] for word in sentence.split()]
+               for sentence in english_sentences]
+fr_tokenized = [[fr_to_idx[word.lower()] for word in sentence.split()]
+               for sentence in french_sentences]
 
-   - Hugging Face course: A comprehensive, free course covering all aspects of Transformers.
-   - "Attention Is All You Need" paper: The original Transformer paper for those interested in the theoretical foundations.
-   - Jay Alammar's blog: Offers visual explanations of NLP concepts, great for visual learners.
-   - FastAI NLP course: Provides practical, code-first approach to NLP including Transformers.
-     \newpage
+# Pad sequences
+max_len = max(max(len(seq) for seq in eng_tokenized),
+                     max(len(seq) for seq in fr_tokenized))
+eng_padded = keras.preprocessing.sequence.pad_sequences
+                  (eng_tokenized, maxlen=max_len, padding='post')
+fr_padded = keras.preprocessing.sequence.pad_sequences
+                  (fr_tokenized, maxlen=max_len, padding='post')
+```
 
-4. Choosing the Right Model
-   Selecting the appropriate model depends on your task:
+### Positional Encoding
 
-   - Text Classification: BERT or RoBERTa are excellent choices. They're pre-trained on a large corpus and can be fine-tuned for specific classification tasks.
-   - Text Generation: GPT-2 or GPT-3 are powerful for generating human-like text. Note that GPT-3 is only available through an API.
-   - Translation: T5 or BART are versatile models that excel in translation tasks.
-   - Question Answering: BERT, RoBERTa, or ALBERT perform well on these tasks.
+Let's implement positional encoding to give our model information about the order of words:
 
-   Consider factors like model size, computational requirements, and specific task performance when making your choice. Larger models generally perform better but require more resources. For example, BERT-base (110M parameters) might be sufficient for many tasks, while BERT-large (340M parameters) could provide better results at the cost of increased computational needs.
+```python
+def get_angles(pos, i, d_model):
+    angle_rates = 1 / np.power(10000, (2 * (i//2)) / np.float32(d_model))
+    return pos * angle_rates
 
-5. Tips for Getting Started
+def positional_encoding(position, d_model):
+    angle_rads = get_angles(np.arange(position)[:, np.newaxis],
+                            np.arange(d_model)[np.newaxis, :],
+                            d_model)
 
-   - Start with pre-trained models: Fine-tuning is often more efficient than training from scratch. For instance, if you're building a sentiment analyzer for product reviews, start with a pre-trained BERT and fine-tune it on your specific dataset.
-   - Experiment with different models: Each model has its strengths; try several to find the best fit. In a chatbot project, you might compare the performance of BERT and GPT-2 for generating responses.
-   - Mind your compute resources: Larger models offer better performance but require more computational power. If deploying on edge devices, consider smaller models like DistilBERT.
-   - Preprocess your data carefully: Good data preparation is crucial for model performance. For a text classification task, ensure your data is cleaned, tokenized, and formatted consistently.
-   - Use transfer learning: Adapt models trained on large datasets to your specific task. This is particularly useful when you have limited domain-specific data.
+    # apply sin to even indices in the array; 2i
+    angle_rads[:, 0::2] = np.sin(angle_rads[:, 0::2])
 
-6. Potential Challenges and Solutions
+    # apply cos to odd indices in the array; 2i+1
+    angle_rads[:, 1::2] = np.cos(angle_rads[:, 1::2])
 
-   - Computational Resources: Training large models can be expensive. Solution: Use cloud GPUs or TPUs, or start with smaller models.
-   - Overfitting: When fine-tuning, models can overfit on small datasets. Solution: Use techniques like early stopping and regularization.
-   - Interpretability: Understanding model decisions can be challenging. Solution: Explore model interpretation techniques like LIME or SHAP.
-   - Keeping Up with Rapid Progress: The field evolves quickly. Solution: Follow key researchers and organizations on social media, and participate in NLP communities.
+    pos_encoding = angle_rads[np.newaxis, ...]
 
-7. Ethical Considerations
-   When deploying Transformer models, consider:
-   - Bias: Models can perpetuate biases present in training data. Regularly audit your model's outputs for unfair biases.
-   - Data Privacy: Ensure you have the right to use your training data and protect user data when deploying models.
-   - Environmental Impact: Large models require significant computational resources. Consider the environmental cost and explore more efficient architectures when possible.
+    return tf.cast(pos_encoding, dtype=tf.float32)
+```
 
-Remember, mastering Transformers is a journey. Start simple, experiment often, and don't hesitate to dive into the vibrant NLP community for support and inspiration. With Transformers, you're at the forefront of NLP technology – use this power responsibly and creatively!
+### Multi-Head Attention
+
+Now, let's implement the crucial multi-head attention mechanism:
+
+```python
+class MultiHeadAttention(keras.layers.Layer):
+    def __init__(self, d_model, num_heads):
+        super(MultiHeadAttention, self).__init__()
+        self.num_heads = num_heads
+        self.d_model = d_model
+
+        assert d_model % self.num_heads == 0
+
+        self.depth = d_model // self.num_heads
+
+        self.wq = keras.layers.Dense(d_model)
+        self.wk = keras.layers.Dense(d_model)
+        self.wv = keras.layers.Dense(d_model)
+
+        self.dense = keras.layers.Dense(d_model)
+
+    def split_heads(self, x, batch_size):
+        x = tf.reshape(x, (batch_size, -1, self.num_heads, self.depth))
+        return tf.transpose(x, perm=[0, 2, 1, 3])
+
+    def call(self, v, k, q, mask):
+        batch_size = tf.shape(q)[0]
+
+        q = self.wq(q)
+        k = self.wk(k)
+        v = self.wv(v)
+
+        q = self.split_heads(q, batch_size)
+        k = self.split_heads(k, batch_size)
+        v = self.split_heads(v, batch_size)
+
+        scaled_attention, attention_weights =
+        self.scaled_dot_product_attention(q, k, v, mask)
+
+        scaled_attention = tf.transpose(scaled_attention, perm=[0, 2, 1, 3])
+        concat_attention = tf.reshape(scaled_attention, (batch_size, -1, self.d_model))
+
+        output = self.dense(concat_attention)
+
+        return output, attention_weights
+
+    def scaled_dot_product_attention(self, q, k, v, mask):
+        matmul_qk = tf.matmul(q, k, transpose_b=True)
+        dk = tf.cast(tf.shape(k)[-1], tf.float32)
+        scaled_attention_logits = matmul_qk / tf.math.sqrt(dk)
+
+        if mask is not None:
+            scaled_attention_logits += (mask * -1e9)
+
+        attention_weights = tf.nn.softmax(scaled_attention_logits, axis=-1)
+        output = tf.matmul(attention_weights, v)
+
+        return output, attention_weights
+```
+
+### Transformer Layer
+
+Now, let's put it all together in a Transformer layer:
+
+```python
+class TransformerLayer(keras.layers.Layer):
+    def __init__(self, d_model, num_heads, dff, rate=0.1):
+        super(TransformerLayer, self).__init__()
+
+        self.mha = MultiHeadAttention(d_model, num_heads)
+        self.ffn = keras.Sequential([
+            keras.layers.Dense(dff, activation='relu'),
+            keras.layers.Dense(d_model)
+        ])
+
+        self.layernorm1 = keras.layers.LayerNormalization(epsilon=1e-6)
+        self.layernorm2 = keras.layers.LayerNormalization(epsilon=1e-6)
+
+        self.dropout1 = keras.layers.Dropout(rate)
+        self.dropout2 = keras.layers.Dropout(rate)
+
+    def call(self, x, training, mask):
+        attn_output, _ = self.mha(x, x, x, mask)
+        attn_output = self.dropout1(attn_output, training=training)
+        out1 = self.layernorm1(x + attn_output)
+
+        ffn_output = self.ffn(out1)
+        ffn_output = self.dropout2(ffn_output, training=training)
+        out2 = self.layernorm2(out1 + ffn_output)
+
+        return out2
+```
+
+### Transformer Model
+
+Finally, let's create our Transformer model:
+
+```python
+class Transformer(keras.Model):
+    def __init__(self, num_layers, d_model, num_heads, dff, input_vocab_size,
+                 target_vocab_size, pe_input, pe_target, rate=0.1):
+        super(Transformer, self).__init__()
+
+        self.embedding = keras.layers.Embedding(input_vocab_size, d_model)
+        self.pos_encoding = positional_encoding(pe_input, d_model)
+
+        self.enc_layers = [TransformerLayer(d_model, num_heads, dff, rate)
+                           for _ in range(num_layers)]
+
+        self.dropout = keras.layers.Dropout(rate)
+        self.final_layer = keras.layers.Dense(target_vocab_size)
+
+    def call(self, x, training):
+        seq_len = tf.shape(x)[1]
+
+        x = self.embedding(x)
+        x *= tf.math.sqrt(tf.cast(self.embedding.output_dim, tf.float32))
+        x += self.pos_encoding[:, :seq_len, :]
+
+        x = self.dropout(x, training=training)
+
+        for layer in self.enc_layers:
+            x = layer(x, training, None)
+
+        x = self.final_layer(x)
+
+        return x
+```
+
+### Training and Inference
+
+Now let's set up our model and train it:
+
+```python
+# Model parameters
+num_layers = 2
+d_model = 128
+num_heads = 8
+dff = 512
+input_vocab_size = len(english_vocab)
+target_vocab_size = len(french_vocab)
+pe_input = 1000
+pe_target = 1000
+dropout_rate = 0.1
+
+# Create and compile the model
+model = Transformer(num_layers, d_model, num_heads, dff, input_vocab_size,
+                    target_vocab_size, pe_input, pe_target, dropout_rate)
+
+optimizer = keras.optimizers.Adam()
+loss_object = keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+
+model.compile(optimizer=optimizer, loss=loss_object)
+
+# Train the model
+history = model.fit(eng_padded, fr_padded, epochs=100, batch_size=2)
+
+# Plot training loss
+plt.plot(history.history['loss'])
+plt.title('Model Loss')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.show()
+
+# Function to translate a sentence
+def translate(sentence):
+    tokenized = [eng_to_idx.get(word.lower(), 0) for word in sentence.split()]
+    padded = keras.preprocessing.sequence.pad_sequences
+    ([tokenized], maxlen=max_len, padding='post')
+
+    predictions = model.predict(padded)
+    predicted_seq = tf.argmax(predictions, axis=-1).numpy()[0]
+
+    translated = ' '.join([idx_to_fr.get(idx, '')
+    for idx in predicted_seq if idx != 0])
+    return translated
+
+# Test the model
+test_sentence = "Thank you"
+print(f"Input: {test_sentence}")
+print(f"Translated: {translate(test_sentence)}")
+```
+
+This example demonstrates:
+
+1. **Positional Encoding**: Implemented to give position information to the model.
+2. **Multi-Head Attention**: The core of the Transformer, allowing the model to focus on different parts of the input.
+3. **Feed-Forward Network**: Implemented within the TransformerLayer.
+4. **Layer Normalization and Residual Connections**: Used to stabilize training and allow for deeper networks.
+5. **Embedding**: Converting words to vectors.
+6. **Final Dense Layer**: For output prediction.
+
+While this is a simplified version and might not achieve high accuracy due to the small dataset, it illustrates the key components and workflow of a Transformer model. Developers can expand on this example by using larger datasets, implementing more layers, or adding an encoder-decoder structure for more complex tasks.
 \newpage
 
 ## Conclusion

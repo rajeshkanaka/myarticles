@@ -1,0 +1,73 @@
+\documentclass[11pt,a4paper]{article}
+
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{minted}
+\setminted{
+  breaklines=true,
+  breakanywhere=true,
+  fontsize=\small,
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1.2,
+    bgcolor=gray!5
+}
+% Custom font (optional, comment out if not needed)
+\usepackage{fontspec}
+\setmainfont{Arial}
+\usepackage{framed} 
+\usepackage{tcolorbox}
+\tcbuselibrary{minted, skins, breakable, xparse}
+
+\DeclareTColorBox{Shaded}{ o }{%
+    breakable,
+    enhanced,
+    colback=gray!5!white,
+    colframe=gray!75!black,
+    IfNoValueTF={#1}{}{#1},
+}
+
+\newcommand{\BeginShaded}{\begin{Shaded}}
+% Title and author information
+$if(title)$
+\title{\LARGE \bf $title$}
+$endif$
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+$if(date)$
+\date{$date$}
+$endif$
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage{hyperref}
+\usepackage{xcolor}
+\definecolor{linkblue}{RGB}{0,0,255} % Adjust RGB values as needed
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkblue,
+    filecolor=linkblue,
+    urlcolor=linkblue,
+    citecolor=linkblue
+}
+
+
+\begin{document}
+
+$if(title)$
+\maketitle
+$endif$
+
+$body$
+
+\end{document}

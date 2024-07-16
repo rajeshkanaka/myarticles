@@ -1,0 +1,557 @@
+<h2 id="introduction">Introduction</h2>
+<p>In today’s fast-paced digital world, database performance can make or
+break a business. Whether you’re handling millions of transactions per
+day or managing critical business intelligence, the efficiency of your
+SQL Server database is paramount. At <a
+href="https://kanakasoftware.com/">Kanaka Software</a>, we understand
+this better than anyone.</p>
+<p>Picture this: Your e-commerce platform slows to a crawl during a
+flash sale, or your financial reporting system takes hours to generate
+end-of-day reports. These scenarios aren’t just inconvenient; they’re
+potential disasters waiting to happen. That’s where the art and science
+of database performance tuning come into play.</p>
+<p>As seasoned tech professionals, we at Kanaka Software have always
+prided ourselves on finding innovative ways to optimize performance and
+deliver the best results for our clients. But our commitment doesn’t
+stop there. We believe in the power of shared knowledge and its ability
+to elevate the entire tech community.</p>
+<p>In the spirit of this belief, we’re excited to dive deep into one of
+the most powerful tools in a SQL Server professional’s arsenal: Extended
+Events. This advanced monitoring and profiling technique has
+revolutionized how we approach performance tuning, and we’re eager to
+share our insights with you.</p>
+<p>In this article, we’ll explore:</p>
+<ul>
+<li>The fundamentals of SQL Server monitoring and profiling</li>
+<li>How Extended Events surpass traditional profiling methods</li>
+<li>Practical implementations of Extended Events for performance
+tuning</li>
+<li>Advanced techniques to squeeze every ounce of performance from your
+databases</li>
+</ul>
+<p>This guide is for you if you’re:</p>
+<ul>
+<li>A seasoned DBA looking to sharpen your skills</li>
+<li>A developer in a small company wearing multiple hats, including
+database management</li>
+<li>An IT professional aiming to optimize your database
+interactions</li>
+<li>Anyone responsible for maintaining and improving SQL Server
+performance</li>
+</ul>
+<p>We understand that in many organizations, especially smaller ones,
+the lines between roles blur. You might be a developer who’s also
+responsible for database administration, or an IT generalist who needs
+to ensure optimal database performance. This article is crafted with you
+in mind, providing insights that are valuable across the spectrum of
+database-related roles.</p>
+<p>So, whether you’re working in a large corporation with dedicated DBAs
+or a smaller setup where you juggle multiple responsibilities, this
+guide will equip you with the knowledge to take your SQL Server
+performance to the next level.</p>
+<p>Fasten your seatbelts and get ready for a journey into the world of
+high-performance databases. Let’s unlock the full potential of your SQL
+Server together!</p>
+<h2 id="understanding-sql-server-monitoring-and-profiling">Understanding
+SQL Server Monitoring and Profiling</h2>
+<p>In the world of database management, knowledge is power. And when it
+comes to SQL Server, the key to that knowledge lies in effective
+monitoring and profiling. These techniques are like the stethoscope and
+X-ray machine of a database doctor, helping us diagnose issues and
+optimize performance.</p>
+<h3 id="what-is-database-monitoring">What is Database Monitoring?</h3>
+<p>Database monitoring is the ongoing process of tracking and analyzing
+various aspects of your SQL Server’s performance. It’s like keeping a
+watchful eye on your database’s vital signs. At Kanaka Software, we’ve
+seen time and again how proper monitoring can prevent small issues from
+snowballing into major problems.</p>
+<p>Key aspects of monitoring include:</p>
+<ul>
+<li>Resource utilization (CPU, memory, disk I/O)</li>
+<li>Query performance</li>
+<li>Index usage</li>
+<li>Wait statistics</li>
+<li>Transaction logs</li>
+</ul>
+<h3 id="what-is-database-profiling">What is Database Profiling?</h3>
+<p>Profiling, on the other hand, is more like a detailed health
+check-up. It involves capturing and analyzing specific events or actions
+within your SQL Server to understand their behavior and impact on
+performance. Profiling helps us get to the root of performance issues by
+providing detailed information about query execution, resource
+consumption, and more.</p>
+<h3 id="basic-vs.-advanced-techniques">Basic vs. Advanced
+Techniques</h3>
+<p>In the early days, we relied on simple tools like SQL Server Profiler
+for our monitoring needs. While it served its purpose, it had
+limitations, especially in high-load environments. As databases grew
+more complex, we needed more sophisticated tools.</p>
+<p>This is where advanced techniques come into play. Tools like Extended
+Events, which we’ll dive into shortly, offer a more lightweight,
+flexible, and powerful approach to monitoring and profiling.</p>
+<h3 id="why-are-these-techniques-important">Why are These Techniques
+Important?</h3>
+<ol type="1">
+<li><p><strong>Proactive Problem Solving</strong>: By continuously
+monitoring your database, you can spot potential issues before they
+impact your users. You can save your clients countless hours of downtime
+by catching problems early.</p></li>
+<li><p><strong>Performance Optimization</strong>: Profiling helps
+identify the most resource-intensive queries or processes, allowing you
+to optimize them for better performance.</p></li>
+<li><p><strong>Capacity Planning</strong>: Understanding your database’s
+resource usage patterns helps in making informed decisions about
+hardware upgrades or cloud resource allocation.</p></li>
+<li><p><strong>Compliance and Auditing</strong>: In many industries,
+maintaining detailed logs of database activities is a regulatory
+requirement.</p></li>
+</ol>
+<h3 id="example-the-power-of-monitoring">Example: The Power of
+Monitoring</h3>
+<p>Let’s consider a real-world scenario we encountered:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- A seemingly innocent query</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> Orders <span class="kw">WHERE</span> OrderDate <span class="op">&gt;</span> <span class="st">&#39;2023-01-01&#39;</span></span></code></pre></div>
+<p>This query was causing sporadic slowdowns in a client’s e-commerce
+platform. Through monitoring, we noticed spikes in disk I/O whenever
+this query ran. Profiling revealed that the query was performing a full
+table scan due to a missing index.</p>
+<p>By adding an appropriate index:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> IX_Orders_OrderDate <span class="kw">ON</span> Orders(OrderDate)</span></code></pre></div>
+<p>We saw an immediate 90% reduction in query execution time and a
+significant decrease in disk I/O.</p>
+<p>This example illustrates how monitoring identified a problem, and
+profiling helped us understand and solve it, resulting in a more
+responsive application for our client.</p>
+<p>In the next section, we’ll delve into one of the most powerful tools
+in our performance tuning toolkit: Extended Events. We’ll explore how
+this advanced feature takes monitoring and profiling to the next level,
+providing unprecedented insights into your SQL Server’s behavior.</p>
+<h2
+id="extended-events-advanced-techniques-for-complex-queries">Extended
+Events: Advanced Techniques for Complex Queries</h2>
+<p>For this article, we’ll be using the AdventureWorks sample database,
+which you can download from Microsoft’s GitHub repository. This will
+allow you to follow along and try these techniques yourself.</p>
+<h3 id="setting-up-extended-events-for-complex-query-analysis">Setting
+Up Extended Events for Complex Query Analysis</h3>
+<p>Let’s set up an Extended Events session to capture complex queries
+that might be causing performance issues:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> EVENT <span class="kw">SESSION</span> [ComplexQueryAnalysis] <span class="kw">ON</span> SERVER</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> EVENT sqlserver.sql_statement_completed(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    ACTION(sqlserver.sql_text, sqlserver.query_hash, sqlserver.query_plan_hash)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> ([duration] <span class="op">&gt;</span> <span class="dv">1000000</span>) <span class="co">-- Capture queries taking longer than 1 second</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> EVENT sqlserver.sp_statement_completed(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    ACTION(sqlserver.sql_text, sqlserver.query_hash, sqlserver.query_plan_hash)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> ([duration] <span class="op">&gt;</span> <span class="dv">1000000</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> TARGET package0.event_file(<span class="kw">SET</span> filename<span class="op">=</span>N<span class="st">&#39;C:</span><span class="ch">\XE</span><span class="st">vents\ComplexQueryAnalysis.xel&#39;</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> (MAX_MEMORY<span class="op">=</span><span class="dv">4096</span> KB,EVENT_RETENTION_MODE<span class="op">=</span>ALLOW_SINGLE_EVENT_LOSS,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>MAX_DISPATCH_LATENCY<span class="op">=</span><span class="dv">30</span> SECONDS,MAX_EVENT_SIZE<span class="op">=</span><span class="dv">0</span> KB,MEMORY_PARTITION_MODE<span class="op">=</span><span class="kw">NONE</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>TRACK_CAUSALITY<span class="op">=</span><span class="kw">ON</span>,STARTUP_STATE<span class="op">=</span><span class="kw">OFF</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>GO</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">-- Start the session</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> EVENT <span class="kw">SESSION</span> [ComplexQueryAnalysis] <span class="kw">ON</span> SERVER STATE <span class="op">=</span> <span class="kw">START</span>;</span></code></pre></div>
+<h3 id="analyzing-complex-query-performance">Analyzing Complex Query
+Performance</h3>
+<p>After running the session, we identified the following problematic
+query:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    soh.CustomerID,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    p.ProductID,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    p.Name <span class="kw">AS</span> ProductName,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SUM</span>(sod.OrderQty) <span class="kw">AS</span> TotalQuantity,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SUM</span>(sod.LineTotal) <span class="kw">AS</span> TotalSales,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">AVG</span>(soh.TotalDue) <span class="kw">AS</span> AverageOrderTotal</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    Sales.SalesOrderHeader soh</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INNER</span> <span class="kw">JOIN</span> Sales.SalesOrderDetail sod </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ON</span> soh.SalesOrderID <span class="op">=</span> sod.SalesOrderID</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INNER</span> <span class="kw">JOIN</span> Production.Product p </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ON</span> sod.ProductID <span class="op">=</span> p.ProductID</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INNER</span> <span class="kw">JOIN</span> Production.ProductSubcategory psc </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ON</span> p.ProductSubcategoryID <span class="op">=</span> psc.ProductSubcategoryID</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INNER</span> <span class="kw">JOIN</span> Production.ProductCategory pc </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ON</span> psc.ProductCategoryID <span class="op">=</span> pc.ProductCategoryID</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    soh.OrderDate <span class="kw">BETWEEN</span> <span class="st">&#39;2013-01-01&#39;</span> <span class="kw">AND</span> <span class="st">&#39;2013-12-31&#39;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AND</span> pc.Name <span class="op">=</span> <span class="st">&#39;Bikes&#39;</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    soh.CustomerID, p.ProductID, p.Name</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SUM</span>(sod.LineTotal) <span class="op">&gt;</span> <span class="dv">10000</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    TotalSales <span class="kw">DESC</span>;</span></code></pre></div>
+<h3 id="query-plan-analysis">Query Plan Analysis</h3>
+<p>Using the query_plan_hash captured by XEvents, we retrieved the
+execution plan:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> qp.query_plan</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> sys.dm_exec_query_stats qs</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">CROSS</span> APPLY sys.dm_exec_sql_text(qs.sql_handle) st</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">CROSS</span> APPLY sys.dm_exec_query_plan(qs.plan_handle) qp</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> qs.query_plan_hash <span class="op">=</span> <span class="bn">0x6CB6F405C2B29565</span> <span class="co">-- Hash captured by XEvents</span></span></code></pre></div>
+<p>The plan revealed several issues:</p>
+<ol type="1">
+<li>A costly index scan on the SalesOrderDetail table</li>
+<li>Suboptimal join order</li>
+<li>Missing indexes on the OrderDate column</li>
+</ol>
+<h3 id="optimization-steps">Optimization Steps</h3>
+<ol type="1">
+<li>We created a covering index for the SalesOrderDetail table:</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> NONCLUSTERED <span class="kw">INDEX</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    IX_SalesOrderDetail_SalesOrderID_ProductID_OrderQty_LineTotal</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> Sales.SalesOrderDetail (SalesOrderID, ProductID)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>INCLUDE (OrderQty, LineTotal);</span></code></pre></div>
+<ol start="2" type="1">
+<li>We added an index to support the date range search:</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> NONCLUSTERED <span class="kw">INDEX</span> IX_SalesOrderHeader_OrderDate</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> Sales.SalesOrderHeader (OrderDate)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>INCLUDE (CustomerID, TotalDue);</span></code></pre></div>
+<ol start="3" type="1">
+<li>We rewrote the query to use a CTE for better readability and
+potentially better optimization:</li>
+</ol>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> BikeProducts <span class="kw">AS</span> (</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">SELECT</span> p.ProductID, p.Name</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">FROM</span> Production.Product p</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INNER</span> <span class="kw">JOIN</span> Production.ProductSubcategory psc </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ON</span> p.ProductSubcategoryID <span class="op">=</span> psc.ProductSubcategoryID</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INNER</span> <span class="kw">JOIN</span> Production.ProductCategory pc </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ON</span> psc.ProductCategoryID <span class="op">=</span> pc.ProductCategoryID</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> pc.Name <span class="op">=</span> <span class="st">&#39;Bikes&#39;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    soh.CustomerID,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    bp.ProductID,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    bp.Name <span class="kw">AS</span> ProductName,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SUM</span>(sod.OrderQty) <span class="kw">AS</span> TotalQuantity,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SUM</span>(sod.LineTotal) <span class="kw">AS</span> TotalSales,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">AVG</span>(soh.TotalDue) <span class="kw">AS</span> AverageOrderTotal</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    Sales.SalesOrderHeader soh</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INNER</span> <span class="kw">JOIN</span> Sales.SalesOrderDetail sod </span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ON</span> soh.SalesOrderID <span class="op">=</span> sod.SalesOrderID</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INNER</span> <span class="kw">JOIN</span> BikeProducts bp </span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ON</span> sod.ProductID <span class="op">=</span> bp.ProductID</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    soh.OrderDate <span class="kw">BETWEEN</span> <span class="st">&#39;2013-01-01&#39;</span> <span class="kw">AND</span> <span class="st">&#39;2013-12-31&#39;</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    soh.CustomerID, bp.ProductID, bp.Name</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SUM</span>(sod.LineTotal) <span class="op">&gt;</span> <span class="dv">10000</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    TotalSales <span class="kw">DESC</span>;</span></code></pre></div>
+<h3 id="results">Results</h3>
+<p>After implementing these changes:</p>
+<ul>
+<li>Query execution time reduced from 45 seconds to 3 seconds</li>
+<li>CPU utilization for this operation decreased by 80%</li>
+<li>I/O operations reduced by 70%</li>
+</ul>
+<p>You can try this example with the AdventureWorks database. By
+capturing detailed performance data with minimal overhead, XEvents
+allowed us to pinpoint the exact areas needing optimization, resulting
+in significant performance improvements.</p>
+<p>In the next section, we’ll explore more advanced techniques with
+Extended Events, including how to correlate events across multiple
+sessions and create custom events for specific monitoring needs.</p>
+<h2 id="advanced-techniques-with-extended-events">Advanced Techniques
+with Extended Events</h2>
+<p>A advanced Extended Events techniques can significantly enhance our
+ability to diagnose and solve complex performance issues. In this
+section, we’ll explore some of these techniques using the AdventureWorks
+database.</p>
+<h3 id="correlating-events-across-multiple-sessions">1. Correlating
+Events Across Multiple Sessions</h3>
+<p>Often, performance issues arise from the interaction of multiple
+processes. Let’s set up an Extended Events session to capture deadlocks
+and correlate them with long-running queries.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> EVENT <span class="kw">SESSION</span> [DeadlockAnalysis] <span class="kw">ON</span> SERVER</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> EVENT sqlserver.lock_deadlock(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    ACTION(sqlserver.session_id, sqlserver.sql_text)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> EVENT sqlserver.sql_statement_completed(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    ACTION(sqlserver.session_id, sqlserver.sql_text)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> ([duration] <span class="op">&gt;</span> <span class="dv">5000000</span>) <span class="co">-- Capture queries taking longer than 5 seconds</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> TARGET </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    package0.event_file(<span class="kw">SET</span> filename<span class="op">=</span>N<span class="st">&#39;C:</span><span class="ch">\XE</span><span class="st">vents\DeadlockAnalysis.xel&#39;</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>(MAX_MEMORY<span class="op">=</span><span class="dv">4096</span> KB,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>EVENT_RETENTION_MODE<span class="op">=</span>ALLOW_SINGLE_EVENT_LOSS,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>MAX_DISPATCH_LATENCY<span class="op">=</span><span class="dv">30</span> SECONDS,MAX_EVENT_SIZE<span class="op">=</span><span class="dv">0</span> KB,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>MEMORY_PARTITION_MODE<span class="op">=</span><span class="kw">NONE</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>TRACK_CAUSALITY<span class="op">=</span><span class="kw">ON</span>,STARTUP_STATE<span class="op">=</span><span class="kw">OFF</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>GO</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">-- Start the session</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> EVENT <span class="kw">SESSION</span> [DeadlockAnalysis] <span class="kw">ON</span> SERVER STATE <span class="op">=</span> <span class="kw">START</span>;</span></code></pre></div>
+<p>Now, let’s simulate a deadlock scenario using AdventureWorks:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Transaction 1</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span> <span class="kw">TRANSACTION</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> Production.Product</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> ListPrice <span class="op">=</span> ListPrice <span class="op">*</span> <span class="fl">1.1</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> ProductID <span class="op">=</span> <span class="dv">776</span>;</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>WAITFOR DELAY <span class="st">&#39;00:00:10&#39;</span>;</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> Sales.SalesOrderDetail</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> UnitPrice <span class="op">=</span> UnitPrice <span class="op">*</span> <span class="fl">1.1</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> ProductID <span class="op">=</span> <span class="dv">776</span>;</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMIT</span> <span class="kw">TRANSACTION</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">-- Transaction 2 (run concurrently)</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span> <span class="kw">TRANSACTION</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> Sales.SalesOrderDetail</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> UnitPrice <span class="op">=</span> UnitPrice <span class="op">*</span> <span class="fl">1.05</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> ProductID <span class="op">=</span> <span class="dv">776</span>;</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>WAITFOR DELAY <span class="st">&#39;00:00:10&#39;</span>;</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> Production.Product</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> ListPrice <span class="op">=</span> ListPrice <span class="op">*</span> <span class="fl">1.05</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> ProductID <span class="op">=</span> <span class="dv">776</span>;</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="kw">COMMIT</span> <span class="kw">TRANSACTION</span></span></code></pre></div>
+<p>After running these transactions, we can analyze the captured
+events:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;(event/@name)[1]&#39;</span>, <span class="st">&#39;varchar(50)&#39;</span>) <span class="kw">AS</span> event_name,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;(event/action[@name=&quot;session_id&quot;]/value)[1]&#39;</span>, <span class="st">&#39;int&#39;</span>) </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">AS</span> session_id,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;(event/action[@name=&quot;sql_text&quot;]/value)[1]&#39;</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>     <span class="st">&#39;nvarchar(max)&#39;</span>) <span class="kw">AS</span> sql_text</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">SELECT</span> <span class="fu">CAST</span>(event_data <span class="kw">AS</span> XML) <span class="kw">AS</span> event_data</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>     <span class="kw">FROM</span> </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>     sys.fn_xe_file_target_read_file(<span class="st">&#39;C:</span><span class="ch">\XE</span><span class="st">vents\DeadlockAnalysis*.xel&#39;</span>, </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                                <span class="kw">NULL</span>, <span class="kw">NULL</span>, <span class="kw">NULL</span>)) </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>                            <span class="kw">AS</span> XEvents</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span>(<span class="st">&#39;(event/@name)[1]&#39;</span>, <span class="st">&#39;varchar(50)&#39;</span>) </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">IN</span> (<span class="st">&#39;lock_deadlock&#39;</span>, <span class="st">&#39;sql_statement_completed&#39;</span>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;(event/@timestamp)[1]&#39;</span>, <span class="st">&#39;datetime2&#39;</span>);</span></code></pre></div>
+<p>This query will show the deadlock event and any long-running queries
+that occurred around the same time, helping us identify the root cause
+of the deadlock.</p>
+<h3 id="custom-event-creation-for-specific-monitoring-needs">2. Custom
+Event Creation for Specific Monitoring Needs</h3>
+<p>Sometimes, we need to monitor specific business-level events. Let’s
+create a custom event to track high-value orders in AdventureWorks.</p>
+<p>First, we’ll create a SQL Server event:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> EVENT [High_Value_Order] <span class="kw">ON</span> SERVER</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> TARGET package0.event_file</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">SET</span> filename<span class="op">=</span>N<span class="st">&#39;C:</span><span class="ch">\XE</span><span class="st">vents\HighValueOrders.xel&#39;</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>GO</span></code></pre></div>
+<p>Now, let’s create a trigger that fires this event when a high-value
+order is placed:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TRIGGER</span> trg_HighValueOrder</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> Sales.SalesOrderHeader</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">AFTER</span> <span class="kw">INSERT</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">AS</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">BEGIN</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">IF</span> <span class="kw">EXISTS</span> (<span class="kw">SELECT</span> <span class="dv">1</span> <span class="kw">FROM</span> inserted <span class="kw">WHERE</span> TotalDue <span class="op">&gt;</span> <span class="dv">10000</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">BEGIN</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">DECLARE</span> @OrderID <span class="dt">int</span>, @CustomerID <span class="dt">int</span>, @TotalDue money;</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">SELECT</span> </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        @OrderID <span class="op">=</span> SalesOrderID, @CustomerID <span class="op">=</span> CustomerID, @TotalDue <span class="op">=</span> TotalDue</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">FROM</span> inserted</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">WHERE</span> TotalDue <span class="op">&gt;</span> <span class="dv">10000</span>;</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">EXEC</span> </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        sp_executesql N<span class="st">&#39;CREATE EVENT SESSION [High_Value_Order] </span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="st">                ON SERVER ADD EVENT </span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="st">            sqlserver.High_Value_Order</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="st">                (@OrderID int, @CustomerID int, @TotalDue money)&#39;</span>,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>                           N<span class="st">&#39;@OrderID int, @CustomerID int, @TotalDue money&#39;</span>,</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>                           @OrderID, @CustomerID, @TotalDue;</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span></span></code></pre></div>
+<p>To test this, let’s insert a high-value order:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> Sales.SalesOrderHeader </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    (RevisionNumber, OrderDate, DueDate, ShipDate, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        Status, OnlineOrderFlag, CustomerID, SalesPersonID, </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>            TerritoryID, BillToAddressID, ShipToAddressID, </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                ShipMethodID, SubTotal, TaxAmt, Freight)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a> (<span class="dv">0</span>, GETDATE(), DATEADD(<span class="dt">day</span>, <span class="dv">7</span>, GETDATE()), </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    DATEADD(<span class="dt">day</span>, <span class="dv">1</span>, GETDATE()), <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">29825</span>, </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="dv">279</span>, <span class="dv">5</span>, <span class="dv">985</span>, <span class="dv">985</span>, <span class="dv">5</span>, <span class="dv">11000</span>, <span class="dv">880</span>, <span class="dv">220</span>);</span></code></pre></div>
+<p>We can then analyze the captured high-value orders:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;(event/data[@name=&quot;OrderID&quot;]/value)[1]&#39;</span>, <span class="st">&#39;int&#39;</span>) <span class="kw">AS</span> OrderID,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;(event/data[@name=&quot;CustomerID&quot;]/value)[1]&#39;</span>, <span class="st">&#39;int&#39;</span>) <span class="kw">AS</span> CustomerID,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;(event/data[@name=&quot;TotalDue&quot;]/value)[1]&#39;</span>, <span class="st">&#39;money&#39;</span>) <span class="kw">AS</span> TotalDue,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;(event/@timestamp)[1]&#39;</span>, <span class="st">&#39;datetime2&#39;</span>) <span class="kw">AS</span> EventTime</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">SELECT</span> <span class="fu">CAST</span>(event_data <span class="kw">AS</span> XML) <span class="kw">AS</span> event_data</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>     <span class="kw">FROM</span> sys.fn_xe_file_target_read_file</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>     (<span class="st">&#39;C:</span><span class="ch">\XE</span><span class="st">vents\HighValueOrders*.xel&#39;</span>, <span class="kw">NULL</span>, <span class="kw">NULL</span>, <span class="kw">NULL</span>)) </span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>     <span class="kw">AS</span> XEvents</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&#39;(event/@name)[1]&#39;</span>, <span class="st">&#39;varchar(50)&#39;</span>) <span class="op">=</span> <span class="st">&#39;High_Value_Order&#39;</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    EventTime <span class="kw">DESC</span>;</span></code></pre></div>
+<p>This advanced technique allows us to monitor specific business events
+without adding overhead to our application code.</p>
+<h3 id="using-extended-events-for-wait-statistics-analysis">3. Using
+Extended Events for Wait Statistics Analysis</h3>
+<p>Finally, let’s set up an Extended Events session to capture wait
+statistics for a specific query:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> EVENT <span class="kw">SESSION</span> [WaitStatsAnalysis] <span class="kw">ON</span> SERVER</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> EVENT sqlos.wait_info(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    ACTION(sqlserver.sql_text, sqlserver.query_hash)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> ([duration] <span class="op">&gt;</span> <span class="dv">1000000</span>) <span class="co">-- Capture waits longer than 1 second</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> EVENT sqlserver.sql_statement_completed(</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    ACTION(sqlserver.sql_text, sqlserver.query_hash)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">WHERE</span> ([duration] <span class="op">&gt;</span> <span class="dv">5000000</span>) <span class="co">-- Capture queries taking longer than 5 seconds</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="kw">ADD</span> TARGET package0.event_file</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>(<span class="kw">SET</span> filename<span class="op">=</span>N<span class="st">&#39;C:</span><span class="ch">\XE</span><span class="st">vents\WaitStatsAnalysis.xel&#39;</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="kw">WITH</span> </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>(MAX_MEMORY<span class="op">=</span><span class="dv">4096</span> KB,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    EVENT_RETENTION_MODE<span class="op">=</span>ALLOW_SINGLE_EVENT_LOSS,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>MAX_DISPATCH_LATENCY<span class="op">=</span><span class="dv">30</span> SECONDS,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    MAX_EVENT_SIZE<span class="op">=</span><span class="dv">0</span> KB,MEMORY_PARTITION_MODE<span class="op">=</span><span class="kw">NONE</span>,</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>TRACK_CAUSALITY<span class="op">=</span><span class="kw">ON</span>,STARTUP_STATE<span class="op">=</span><span class="kw">OFF</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>GO</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">-- Start the session</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> EVENT <span class="kw">SESSION</span> [WaitStatsAnalysis] <span class="kw">ON</span> SERVER STATE <span class="op">=</span> <span class="kw">START</span>;</span></code></pre></div>
+<p>Now, let’s run a query that might cause significant waits:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    p.Name <span class="kw">AS</span> ProductName,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SUM</span>(sod.OrderQty) <span class="kw">AS</span> TotalQuantity,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SUM</span>(sod.LineTotal) <span class="kw">AS</span> TotalSales</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    Production.Product p</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INNER</span> <span class="kw">JOIN</span> Sales.SalesOrderDetail sod </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ON</span> p.ProductID <span class="op">=</span> sod.ProductID</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">INNER</span> <span class="kw">JOIN</span> Sales.SalesOrderHeader soh </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">ON</span> sod.SalesOrderID <span class="op">=</span> soh.SalesOrderID</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    soh.OrderDate <span class="kw">BETWEEN</span> <span class="st">&#39;2013-01-01&#39;</span> <span class="kw">AND</span> <span class="st">&#39;2013-12-31&#39;</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    p.Name</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    TotalSales <span class="kw">DESC</span>;</span></code></pre></div>
+<p>After running this query, we can analyze the wait statistics:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span>(<span class="st">&#39;(event/@name)[1]&#39;</span>, <span class="st">&#39;varchar(50)&#39;</span>) </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">AS</span> event_name,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&#39;(event/data[@name=&quot;wait_type&quot;]/text)[1]&#39;</span>, <span class="st">&#39;nvarchar(100)&#39;</span>) <span class="kw">AS</span> wait_type,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&#39;(event/data[@name=&quot;duration&quot;]/value)[1]&#39;</span>, <span class="st">&#39;int&#39;</span>) <span class="op">/</span> <span class="dv">1000</span> <span class="kw">AS</span> wait_time_ms,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&#39;(event/action[@name=&quot;sql_text&quot;]/value)[1]&#39;</span>, <span class="st">&#39;nvarchar(max)&#39;</span>) <span class="kw">AS</span> sql_text</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">SELECT</span> <span class="fu">CAST</span>(event_data <span class="kw">AS</span> XML) <span class="kw">AS</span> event_data</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>     <span class="kw">FROM</span> sys.fn_xe_file_target_read_file</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&#39;C:</span><span class="ch">\XE</span><span class="st">vents\WaitStatsAnalysis*.xel&#39;</span>, <span class="kw">NULL</span>, <span class="kw">NULL</span>, <span class="kw">NULL</span>)) </span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">AS</span> XEvents</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    event_data.<span class="fu">value</span>(<span class="st">&#39;(event/@name)[1]&#39;</span>, <span class="st">&#39;varchar(50)&#39;</span>) <span class="op">=</span> <span class="st">&#39;wait_info&#39;</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    wait_time_ms <span class="kw">DESC</span>;</span></code></pre></div>
+<p>This analysis will show us the types of waits our query is
+experiencing, helping us identify bottlenecks such as I/O issues or lock
+contention.</p>
+<h2
+id="conclusion-mastering-sql-server-performance-with-extended-events">Conclusion:
+Mastering SQL Server Performance with Extended Events</h2>
+<p>Throughout this article, we have demonstrated how you can use
+Extended Events to optimize SQL Server performance, with use of the
+AdventureWorks database. As we conclude, let’s reflect on some key
+takeaways:</p>
+<p>Remember, nothing is difficult if you face it with knowledge and
+confidence. The techniques we’ve discussed may seem advanced, but with
+practice and persistence, you can master them and significantly improve
+your database performance.</p>
+<h3 id="key-points-covered">Key Points Covered:</h3>
+<ol type="1">
+<li><p><strong>Understanding Monitoring and Profiling</strong>: We
+explored the fundamental concepts of database monitoring and profiling,
+emphasizing their crucial role in maintaining optimal
+performance.</p></li>
+<li><p><strong>Extended Events Basics</strong>: We introduced Extended
+Events as a powerful, lightweight tool for capturing and analyzing SQL
+Server performance data.</p></li>
+<li><p><strong>Complex Query Analysis</strong>: Using real-world
+scenarios from AdventureWorks, we showed how to set up Extended Events
+sessions to capture and analyze complex queries.</p></li>
+<li><p><strong>Advanced Techniques</strong>: We delved into advanced
+uses of Extended Events, including event correlation, custom event
+creation, and wait statistics analysis.</p></li>
+</ol>
+<h3 id="join-our-team">Join Our Team</h3>
+<p>At <a href="https://kanakasoftware.com/">Kanaka Software</a>, we’re
+always looking for talented individuals who are passionate about
+technology and innovation. We currently have exciting openings for C#
+and .NET developers. If you’ve enjoyed this article and are interested
+in working with cutting-edge technologies, we encourage you to explore
+our current job openings. Visit <a
+href="https://www.linkedin.com/posts/kanakasoftware_activity-7207275748166930432-lG4P?utm_source=share&amp;utm_medium=member_desktop">C#
+and .NET openings at Kanaka Software</a> to see our latest opportunities
+in C# and .NET development.</p>
+<p>We’re proud to be a <a
+href="https://www.linkedin.com/posts/kanakasoftware_activity-7092785964024049664-ktWX?utm_source=share&amp;utm_medium=member_desktop">“Great
+Place to Work”</a> certified organization. At Kanaka Software, we put
+our <a
+href="https://www.linkedin.com/feed/update/urn:li:activity:7163162410101424128">employees’
+wellbeing first</a>, fostering an environment of growth, innovation, and
+work-life balance. Join us in our mission to push the boundaries of
+technology and create impactful solutions for our clients.</p>
+<h3 id="next-steps">Next Steps</h3>
+<p>To further enhance your SQL Server performance tuning skills:</p>
+<ol type="1">
+<li><strong>Practice Regularly</strong>: Set up Extended Events sessions
+in your development environment and analyze the results.</li>
+<li><strong>Stay Updated</strong>: Keep an eye on the latest
+developments in SQL Server and database technologies.</li>
+<li><strong>Share Knowledge</strong>: Engage with the community and
+share your findings.</li>
+<li><strong>Implement Gradually</strong>: Start with basic techniques
+and progressively incorporate more advanced ones.</li>
+<li><strong>Customize for Your Needs</strong>: Adapt these techniques to
+meet your specific requirements and business needs.</li>
+</ol>
+<p>By leveraging the power of Extended Events and applying these
+advanced performance tuning techniques, you’re well on your way to
+ensuring your SQL Server databases run at peak efficiency. Remember, at
+Kanaka Software, we believe that with the right knowledge and
+confidence, you can overcome any technical challenge.</p>
+<p><a href="https://www.linkedin.com/company/kanakasoftware/">We invite
+you to join us</a> on this exciting journey, whether as a reader, a
+client, or potentially, a future team member. Together, we can push the
+boundaries of what’s possible in database performance and software
+development.</p>
+<p>Happy tuning, and may your queries always run faster!</p>

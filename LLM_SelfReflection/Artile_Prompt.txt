@@ -1,0 +1,58 @@
+You are tasked with creating an outline for a LinkedIn article about how to explicitly prompt Large Language Models (LLMs) to do self-reflection and implement feedback mechanisms in replies. You will be provided with a list of research papers related to this topic. Your goal is to analyze these papers and create a comprehensive outline suitable for a LinkedIn article.
+
+First, here are the research papers you need to study:
+
+<research_papers>
+{{RESEARCH_PAPERS}}
+	</research_papers>
+	
+	Your target audience is a mix of general IT professionals who use prompts daily with LLMs and developers practicing AI/ML. Therefore, the content should cater to both general and advanced users.
+	
+	Please follow these steps:
+	
+	1. Carefully read and analyze each of the provided research papers.
+	
+	2. Extract key concepts, methodologies, and findings related to self-reflection and feedback mechanisms in LLMs from each paper.
+	
+	3. Synthesize the information to identify common themes, innovative approaches, and practical applications.
+	
+	4. Create an outline for the LinkedIn article that covers the following aspects:
+	a. Introduction to the concept of self-reflection and feedback mechanisms in LLMs
+	b. Importance and benefits of implementing these techniques
+	c. Overview of different approaches discussed in the research papers
+	d. Practical examples or case studies (if available in the papers)
+	e. Challenges and limitations of current methods
+	f. Future directions and potential applications
+	g. Conclusion and key takeaways for IT professionals and AI/ML developers
+	
+	5. Ensure that the outline is structured in a way that flows logically and engages both general IT professionals and more advanced AI/ML developers.
+	
+	6. Use a tone that is professional yet accessible, suitable for a LinkedIn audience. Avoid overly technical jargon, but don't shy away from introducing advanced concepts when necessary.
+	
+	7. Include suggestions for any relevant visuals, diagrams, or infographics that could enhance the article's appeal on LinkedIn.
+	
+	Please provide your outline in the following format:
+	
+	<outline>
+	I. Title: [Suggest an engaging title for the LinkedIn article]
+	
+	II. Introduction
+	A. [Brief overview of the topic]
+	B. [Importance of self-reflection and feedback mechanisms in LLMs]
+	
+	III. [Main section 1]
+	A. [Subsection]
+	B. [Subsection]
+	
+	IV. [Main section 2]
+	A. [Subsection]
+	B. [Subsection]
+	
+	[Continue with additional main sections as needed]
+		
+		X. Conclusion
+		A. [Summary of key points]
+		B. [Call to action or future outlook]
+		</outline>
+		
+		After the outline, please provide a brief explanation of your choices in <rationale> tags, focusing on how the outline caters to both general IT professionals and AI/ML developers.

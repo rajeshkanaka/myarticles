@@ -3,7 +3,7 @@ documentclass: article
 classoption: 11pt,a4paper
 geometry: margin=1in
 header-includes: |
-  \input{transformer_template.tex}
+  \input{transformer\_template.tex}
 title: "Transformer Architecture Uncovered: An Advanced Developer's Handbook"
 author: Rajesh Pandhare, Kanaka Software
 date: \today
@@ -78,7 +78,7 @@ Imagine building a sophisticated language processing pipeline in your favorite p
 Welcome to the fascinating world of the Transformer architecture, a game-changer in AI that's powering everything from chatbots to language translation. Let's break down our diagram in a way that's easy to understand, even if you're not a tech expert:
 \newpage
 
-![Core Components of a Transformer](image-1.png)
+![Core Components of a Transformer][image-1]
 \newpage
 
 ## 1. Input Embeddings
@@ -138,7 +138,7 @@ In our next section, we'll trace how a piece of text flows through these compone
 
 ## How Transformers Work: A Detailed Walkthrough
 
-![How Transformers Work: A Walkthrough](image-3.png)
+![How Transformers Work: A Walkthrough][image-2]
 \newpage
 
 Imagine you're building a pipeline to process and understand text. Let's walk through how a Transformer, the powerhouse of modern NLP, would handle the sentence: "The cat sat on the mat."
@@ -235,20 +235,21 @@ Now, we adapt the output for specific tasks:
 
 - Translation: Generate text in another language
 
-  ```python
-  translated = generate_text(output, target_language="French")
-  ```
+```python
+translated = generate_text(output, target_language="French")
+```
 
 - Classification: Determine the category of the input
 
-  ```python
-  class_probabilities = softmax(linear(output[0]))  # Using first token
-  ```
+```python
+class_probabilities = softmax(linear(output[0]))  # Using first token
+```
 
 - Question Answering: Find the answer span in a given text
-  ```python
-  answer_span = find_answer_span(output, question)
-  ```
+
+```python
+answer_span = find_answer_span(output, question)
+```
 
 The Transformer's versatility comes from its ability to learn general language representations, which can then be fine-tuned for specific tasks with minimal changes.
 
@@ -266,13 +267,9 @@ By understanding this workflow, you're better equipped to work with, adapt, and 
 ## The Dual Engines of Transformers: Feed Forward and Backpropagation
 
 Imagine you're building the world's most advanced language translation machine. You've got the blueprint (that's our Transformer architecture), but how does it actually learn and operate? Enter the dual engines of Transformers: the feed forward process and backpropagation. Understanding these is like knowing both the accelerator and the steering wheel of our AI vehicle.
+\newpage
 
-\newpage
-\newpage
-\newpage
-\thispagestyle{empty} % Remove page number
-\centering
-\includegraphics[angle=90,origin=c,width=\textheight]{image-4.png}
+![The Dual Engines of Transformers: Feed Forward and Backpropagation](image-4.png)
 \newpage
 
 ### Feed Forward: The Information Superhighway
@@ -561,11 +558,7 @@ Transformers brought several game-changing innovations to NLP. Let's explore the
    - Previous Approach: RNNs inherently knew token positions.
    - Impact: Models like RoBERTa understand sequence while processing in parallel.
 
-5. Scale and Transfer Learning
-   - Innovation: Train on massive datasets, fine-tune for specific tasks.
-   - Developer Analogy: Building a general-purpose library with easy customization.
-   - Previous Approach: Models often trained from scratch for each task.
-   - Impact: GPT-3 shows "few-shot learning" capabilities.
+5. Scale and Transfer Learning 2. Innovation: Train on massive datasets, fine-tune for specific tasks. 3. Developer Analogy: Building a general-purpose library with easy customization. 4. Previous Approach: Models often trained from scratch for each task. 5. Impact: GPT-3 shows "few-shot learning" capabilities.
 
 These innovations synergize to create models that understand and generate human-like text with unprecedented accuracy and efficiency. From Google's Transformer revolutionizing machine translation to GitHub Copilot assisting in code generation, the impact spans across various NLP tasks.
 
@@ -966,3 +959,6 @@ The era of Transformers is here, transforming not just how we process language, 
 What will you build with Transformers? Will it be a more intuitive search engine? A sophisticated chatbot? Or perhaps a tool that combines language and visual understanding in novel ways? The possibilities are limited only by our imagination and our commitment to responsible development.
 
 As we conclude, remember that every great innovation in tech started with curious developers asking "What if?" and "Why not?" You're now equipped with the knowledge to start your journey with Transformers. Welcome to the future of AI – let's build it together, responsibly and creatively!
+
+[image-1]: image-1.png
+[image-2]: image-3.png

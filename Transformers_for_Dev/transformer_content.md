@@ -4,7 +4,7 @@ classoption: 11pt,a4paper
 geometry: margin=1in
 header-includes: |
   \input{transformer_template.tex}
-title: "Transformer Architecture Explained Simply: A Developer's Guide"
+title: "Transformer Architecture Uncovered: An Advanced Developer's Handbook"
 author: Rajesh Pandhare, Kanaka Software
 date: \today
 ---
@@ -14,7 +14,7 @@ date: \today
 \tableofcontents
 \newpage
 
-# Transformer Architecture Explained Simply: A Developer's Guide to AI's Game-Changer
+# Transformer Architecture Uncovered: An Advanced Developer's Handbook
 
 Hey there, fellow developers! Feeling a bit lost in the AI buzzword jungle, especially when it comes to "Transformers"? You're not alone. As a developer myself, I know how daunting it can be to venture beyond our familiar code territories into the realm of AI and machine learning.
 
@@ -71,7 +71,7 @@ So, now that we know what a Transformer is and why it's a big deal, you might be
 
 \newpage
 
-## Core Components of a Transformer (Simplified)
+## Core Components of a Transformer
 
 Imagine building a sophisticated language processing pipeline in your favorite programming language. The Transformer architecture is like that pipeline, with each component playing a crucial role. Let's break it down:
 
@@ -136,7 +136,7 @@ The Transformer architecture represents a leap forward in AI's ability to unders
 In our next section, we'll trace how a piece of text flows through these components, giving you a concrete understanding of the Transformer's inner workings. Get ready to see this fascinating architecture in action!
 \newpage
 
-## How Transformers Work: A Simple Walkthrough
+## How Transformers Work: A Detailed Walkthrough
 
 ![How Transformers Work: A Walkthrough](image-3.png)
 \newpage
@@ -267,6 +267,14 @@ By understanding this workflow, you're better equipped to work with, adapt, and 
 
 Imagine you're building the world's most advanced language translation machine. You've got the blueprint (that's our Transformer architecture), but how does it actually learn and operate? Enter the dual engines of Transformers: the feed forward process and backpropagation. Understanding these is like knowing both the accelerator and the steering wheel of our AI vehicle.
 
+\newpage
+\newpage
+\newpage
+\thispagestyle{empty} % Remove page number
+\centering
+\includegraphics[angle=90,origin=c,width=\textheight]{image-4.png}
+\newpage
+
 ### Feed Forward: The Information Superhighway
 
 The feed forward process in Transformers is like a futuristic assembly line, processing language at lightning speed. Here's how it works:
@@ -350,6 +358,7 @@ The feed forward and backpropagation processes are more than just technical deta
 Whether you're fine-tuning BERT for sentiment analysis, adapting GPT for creative writing, or dreaming up the next big language AI, a solid grasp of these concepts is your springboard to success. As we stand on the brink of even more advanced AI systems, this foundational knowledge will be invaluable in shaping the future of language technology.
 
 Remember, every time you interact with a chatbot, use a translation tool, or marvel at AI-generated text, you're seeing the results of these intricate processes at work. The next breakthrough could come from anyone who deeply understands and creatively applies these principles.
+\newpage
 
 ## Activation Functions in Transformers: Choosing Your Model's Decision Makers
 
@@ -468,6 +477,7 @@ In Transformers:
 - **ReLU** is typically used in the position-wise feed-forward networks.
 - **Softmax** is crucial in the attention mechanism to normalize attention scores.
 - **GELU** (Gaussian Error Linear Unit) is sometimes used as an alternative to ReLU in more recent Transformer variants.
+  \newpage
 
 ### Choosing the Right Activation Function
 
@@ -511,11 +521,13 @@ Sigmoid & $(0, 1)$ & Binary classification & Rarely used in Transformers \\ \hli
 SELU & $(-\infty, \infty)$ & Self-normalizing networks & Alternative in feed-forward \\ \hline
 \end{tabular}
 
-### Conclusion
+### Conclusion for this section
 
 Choosing the right activation function is crucial for your Transformer's performance. While ReLU and Softmax are the workhorses in most Transformer architectures, understanding the full spectrum of options empowers you to make informed decisions and potentially innovate on the architecture itself.
 
 Remember, the field of deep learning is ever-evolving. New activation functions are being researched and proposed regularly. Stay curious, keep experimenting, and you might just discover the next big breakthrough in Transformer technology!
+
+\newpage
 
 ## Key Innovations of Transformers
 

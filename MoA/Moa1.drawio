@@ -1,0 +1,118 @@
+<mxfile host="Electron" modified="2024-08-10T09:44:48.757Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="3RTH5XXc6fGN7IV508G2" version="24.6.4" type="device">
+  <diagram name="Page-1" id="mugQFW5fYwN22fQ7jYk0">
+    <mxGraphModel dx="954" dy="674" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-1" value="Single AI Model" style="whiteSpace=wrap;strokeWidth=2;rounded=1;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="362" y="113" width="122" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-2" value="Mixture of Experts MoE" style="whiteSpace=wrap;strokeWidth=2;rounded=1;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="334" y="197" width="180" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-3" value="Mixture of Agents MoA" style="whiteSpace=wrap;strokeWidth=2;rounded=1;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="32" y="299" width="174" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-4" value="Expert 1" style="whiteSpace=wrap;strokeWidth=2;rounded=1;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="256" y="299" width="75" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-5" value="Expert 2" style="whiteSpace=wrap;strokeWidth=2;rounded=1;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="415" y="299" width="75" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-6" value="Expert 3" style="whiteSpace=wrap;strokeWidth=2;rounded=1;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="573" y="299" width="75" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-7" value="Agent 1" style="whiteSpace=wrap;strokeWidth=2;rounded=1;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="286" y="401" width="69" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-8" value="Agent 2" style="whiteSpace=wrap;strokeWidth=2;rounded=1;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="145" y="503" width="69" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-9" value="Agent 3" style="whiteSpace=wrap;strokeWidth=2;rounded=1;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="135" y="586" width="69" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-10" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=0.99;entryX=0.5;entryY=-0.01;rounded=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="YK9RhLq_us5DaNqCvu9n-1" target="YK9RhLq_us5DaNqCvu9n-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-11" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.92;entryX=0.5;entryY=-0.01;rounded=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="YK9RhLq_us5DaNqCvu9n-2" target="YK9RhLq_us5DaNqCvu9n-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="119" y="264" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-12" value="Limited Interaction" style="curved=1;startArrow=none;endArrow=block;exitX=0.26;exitY=0.97;entryX=0.51;entryY=-0.01;rounded=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="YK9RhLq_us5DaNqCvu9n-2" target="YK9RhLq_us5DaNqCvu9n-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="294" y="264" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-13" value="Limited Interaction" style="curved=1;startArrow=none;endArrow=block;entryX=0.5;entryY=-0.01;rounded=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="YK9RhLq_us5DaNqCvu9n-2" target="YK9RhLq_us5DaNqCvu9n-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="452" y="264" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-14" value="Limited Interaction" style="curved=1;startArrow=none;endArrow=block;exitX=0.84;exitY=0.97;entryX=0.5;entryY=-0.01;rounded=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="YK9RhLq_us5DaNqCvu9n-2" target="YK9RhLq_us5DaNqCvu9n-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="611" y="264" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-15" value="Dynamic Collaboration" style="curved=1;startArrow=none;endArrow=block;exitX=0.88;exitY=0.97;entryX=0.5;entryY=-0.01;rounded=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="YK9RhLq_us5DaNqCvu9n-3" target="YK9RhLq_us5DaNqCvu9n-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="366" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-16" value="Dynamic Collaboration" style="curved=1;startArrow=none;endArrow=block;exitX=0.6;exitY=0.97;entryX=0.46;entryY=-0.01;rounded=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="YK9RhLq_us5DaNqCvu9n-3" target="YK9RhLq_us5DaNqCvu9n-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="366" />
+              <mxPoint x="170" y="468" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-17" value="Dynamic Collaboration" style="curved=1;startArrow=none;endArrow=block;exitX=0.41;exitY=0.97;entryX=0;entryY=0.07;rounded=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="YK9RhLq_us5DaNqCvu9n-3" target="YK9RhLq_us5DaNqCvu9n-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="69" y="366" />
+              <mxPoint x="69" y="561" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-18" value="" style="curved=1;startArrow=block;endArrow=block;exitX=0.19;exitY=0.97;entryX=0.86;entryY=-0.01;rounded=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="YK9RhLq_us5DaNqCvu9n-7" target="YK9RhLq_us5DaNqCvu9n-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="255" y="468" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-19" value="" style="curved=1;startArrow=block;endArrow=block;exitX=0.5;exitY=0.97;entryX=0.56;entryY=0;rounded=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="YK9RhLq_us5DaNqCvu9n-8" target="YK9RhLq_us5DaNqCvu9n-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="561" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-20" value="" style="curved=1;startArrow=block;endArrow=block;exitX=1.01;exitY=0.23;entryX=0.55;entryY=0.97;rounded=1;labelBackgroundColor=none;strokeColor=#A8201A;fontColor=default;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" edge="1" parent="1" source="YK9RhLq_us5DaNqCvu9n-9" target="YK9RhLq_us5DaNqCvu9n-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="561" />
+              <mxPoint x="330" y="468" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YK9RhLq_us5DaNqCvu9n-21" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;font color=&quot;#007fff&quot;&gt;Evolution from MoE to MoA&lt;/font&gt;&lt;/h1&gt;&lt;p style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font face=&quot;Helvetica&quot; color=&quot;#000f1f&quot;&gt;&lt;b style=&quot;&quot;&gt;In MoE, experts mostly stuck to their lanes. But MoA? It&#39;s a non-stop digital pow-wow. These AI agents chat, debate, and even learn from each other&#39;s mistakes. It&#39;s like watching a team of geniuses brainstorm 24/7.&lt;/b&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=1;fillColor=none;strokeColor=default;dashed=1;dashPattern=1 4;glass=1;shadow=1;sketch=1;curveFitting=1;jiggle=2;" vertex="1" parent="1">
+          <mxGeometry x="9" y="4" width="801" height="99" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

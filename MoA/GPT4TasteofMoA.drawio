@@ -1,0 +1,86 @@
+<mxfile host="Electron" modified="2024-08-10T10:20:22.433Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="jz8Wy60U5KcxsMLZwWuR" version="24.6.4" type="device">
+  <diagram name="Page-1" id="KvKdXn7d49ML3BakFXM-">
+    <mxGraphModel dx="954" dy="674" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="fABJZq9_5bwRbnmrEGir-1" value="GPT-4" style="whiteSpace=wrap;strokeWidth=2;sketch=1;curveFitting=1;jiggle=2;rounded=0;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="1">
+          <mxGeometry x="145" y="225" width="57" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-2" value="Text Wizard" style="whiteSpace=wrap;strokeWidth=2;sketch=1;curveFitting=1;jiggle=2;rounded=0;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="1">
+          <mxGeometry x="278" y="327" width="99" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-3" value="Image Detective" style="whiteSpace=wrap;strokeWidth=2;sketch=1;curveFitting=1;jiggle=2;rounded=0;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="1">
+          <mxGeometry x="169" y="411" width="132" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-4" value="Code Guru" style="whiteSpace=wrap;strokeWidth=2;sketch=1;curveFitting=1;jiggle=2;rounded=0;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="1">
+          <mxGeometry x="190" y="494" width="90" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-5" value="You" style="whiteSpace=wrap;strokeWidth=2;sketch=1;curveFitting=1;jiggle=2;rounded=0;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="1">
+          <mxGeometry x="154" y="123" width="40" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-6" value="You, but smarter" style="whiteSpace=wrap;strokeWidth=2;sketch=1;curveFitting=1;jiggle=2;rounded=0;labelBackgroundColor=none;fillColor=#FAE5C7;strokeColor=#0F8B8D;fontColor=#143642;" vertex="1" parent="1">
+          <mxGeometry x="55" y="327" width="135" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-7" value="" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.77;entryX=0.5;entryY=0;rounded=0;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;fontColor=default;strokeColor=#A8201A;" edge="1" parent="1" source="fABJZq9_5bwRbnmrEGir-1" target="fABJZq9_5bwRbnmrEGir-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="328" y="293" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-8" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.8;exitY=0.99;entryX=0.47;entryY=-0.01;rounded=0;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;fontColor=default;strokeColor=#A8201A;" edge="1" parent="1" source="fABJZq9_5bwRbnmrEGir-1" target="fABJZq9_5bwRbnmrEGir-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="225" y="293" />
+              <mxPoint x="225" y="386" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-9" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.77;entryX=0;entryY=0.24;rounded=0;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;fontColor=default;strokeColor=#A8201A;" edge="1" parent="1" source="fABJZq9_5bwRbnmrEGir-1" target="fABJZq9_5bwRbnmrEGir-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="20" y="293" />
+              <mxPoint x="20" y="469" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-10" value="" style="curved=1;startArrow=block;endArrow=block;exitX=0.3;exitY=0.99;entryX=0.63;entryY=-0.01;rounded=0;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;fontColor=default;strokeColor=#A8201A;" edge="1" parent="1" source="fABJZq9_5bwRbnmrEGir-2" target="fABJZq9_5bwRbnmrEGir-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="277" y="386" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-11" value="" style="curved=1;startArrow=block;endArrow=block;exitX=0.5;exitY=0.97;entryX=0.5;entryY=0;rounded=0;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;fontColor=default;strokeColor=#A8201A;" edge="1" parent="1" source="fABJZq9_5bwRbnmrEGir-3" target="fABJZq9_5bwRbnmrEGir-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-12" value="" style="curved=1;startArrow=block;endArrow=block;exitX=0.96;exitY=0;entryX=0.54;entryY=0.99;rounded=0;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;fontColor=default;strokeColor=#A8201A;" edge="1" parent="1" source="fABJZq9_5bwRbnmrEGir-4" target="fABJZq9_5bwRbnmrEGir-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="338" y="469" />
+              <mxPoint x="338" y="386" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-13" value="Ask or show something" style="curved=1;startArrow=none;endArrow=block;exitX=0.49;exitY=0.99;entryX=0.5;entryY=0;rounded=0;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;fontColor=default;strokeColor=#A8201A;" edge="1" parent="1" source="fABJZq9_5bwRbnmrEGir-5" target="fABJZq9_5bwRbnmrEGir-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-14" value="Smart answer" style="curved=1;startArrow=none;endArrow=block;exitX=0.21;exitY=0.99;entryX=0.5;entryY=0;rounded=0;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;fontColor=default;strokeColor=#A8201A;" edge="1" parent="1" source="fABJZq9_5bwRbnmrEGir-1" target="fABJZq9_5bwRbnmrEGir-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="122" y="293" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fABJZq9_5bwRbnmrEGir-16" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;GPT-4: A Taste of MoA&lt;/h1&gt;&lt;p&gt;&lt;b&gt;GPT-4 isn&#39;t a full-blown MoA system, but it&#39;s like the Swiss Army knife of AI. It&#39;s got different tools for different jobs, all working together..&lt;/b&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;fontFamily=Architects Daughter;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DArchitects%2BDaughter;fontColor=#143642;" vertex="1" parent="1">
+          <mxGeometry x="4" y="8" width="763" height="120" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

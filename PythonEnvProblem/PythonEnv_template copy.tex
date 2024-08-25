@@ -1,0 +1,121 @@
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{tcolorbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{afterpage}
+\usepackage{pagecolor}
+\usepackage{tikz}
+
+
+\definecolor{covercolor}{RGB}{0,102,204}
+\definecolor{linkcolor}{RGB}{0,102,204}
+\definecolor{codebackground}{RGB}{240,240,240}
+\definecolor{quotecolor}{RGB}{220,220,220}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkcolor
+    filecolor=linkcolor,      
+    urlcolor=linkcolor,
+    citecolor=linkcolor
+}
+
+% Custom section formatting
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+                    {-3.5ex \@plus -1ex \@minus -.2ex}%
+                    {2.3ex \@plus.2ex}%
+                    {\normalfont\Large\bfseries\color{linkcolor}}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                    {-3.25ex\@plus -1ex \@minus -.2ex}%
+                    {1.5ex \@plus .2ex}%
+                    {\normalfont\large\bfseries\color{linkcolor}}}
+\makeatother
+
+\newcommand{\codeblock}[1]{
+  \begin{tcolorbox}[colback=codebackground,boxrule=0pt,arc=0pt,left=5pt,right=5pt,top=5pt,bottom=5pt]
+    \texttt{#1}
+  \end{tcolorbox}
+}
+
+\newenvironment{customquote}
+  {\begin{mdframed}[backgroundcolor=quotecolor,linewidth=0pt,leftmargin=10pt,rightmargin=10pt]\itshape}
+  {\end{mdframed}}
+
+\pagestyle{fancy}
+\fancyhead[L]{Optimize Your Workflow}
+\fancyhead[R]{\thepage}
+\fancyfoot[C]{Master Python Environment Management for AI/ML: Boost Your Productivity from Beginner to Pro}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\setstretch{1.15}
+
+% Cover page command
+\usepackage{tikz}
+
+\newcommand{\makekanakacover}{
+    \begin{titlepage}
+        \pagecolor{covercolor}
+        \afterpage{\nopagecolor}
+        % Background graphic
+        \begin{tikzpicture}[remember picture,overlay]
+            \draw[white,very thin] (current page.south west) grid[step=1cm] (current page.north east);
+        \end{tikzpicture}
+        \centering
+        \vspace*{1cm}
+        \includegraphics[width=0.4\textwidth]{kanaka_logo.png} % Placeholder for Kanaka Software logo
+        \vspace{0.5cm}
+        {\Large\color{white}Presents\par}
+        \vspace{0.5cm}
+        {\Huge\bfseries\color{white}Optimize Your Workflow\par}
+        \vspace{0.3cm}
+        {\Large\color{white}Master Python Environment Management for AI/ML\par}
+        \vspace{0.5cm}
+        {\large\color{white}Boost Your Productivity from Beginner to Pro\par}
+        \vspace{1cm}
+        {\small\color{white}Innovating Technology, Empowering Developers\par}
+        \vspace{1cm}
+        \begin{minipage}{0.8\textwidth}
+          \color{white}
+          \small
+            At Kanaka Software, our AI/ML Team combines deep expertise with a relentless drive for innovation to deliver exceptional results. This guide reflects our dedication to empowering businesses with cutting-edge AI and machine learning solutions, helping them achieve their goals and stay ahead in a competitive landscape. Trust Kanaka Software as your strategic partner in navigating the future of technology, ensuring your success every step of the way.
+        \end{minipage}
+        \vfill
+        {\large\color{white}Ready to transform your understanding of AI?\par}
+        \vspace{0.3cm}
+        {\large\color{white}Let's embark on this exciting journey together!\par}
+        \vspace{0.5cm}
+        {\small\color{white}A "Great Place to Work" certified organization\par}
+        \vspace{0.5cm}
+        {\small\color{white}www.kanakasoftware.com | info@kanakasoftware.com\par}
+        \vspace{0.3cm}
+        {\large\color{white}\today\par}
+    \end{titlepage}
+    \nopagecolor
+}
+
+% Custom title page command
+\newcommand{\makecustomtitlepage}{
+    \begin{titlepage}
+        \centering
+        \vspace*{2cm}
+        {\Huge\bfseries\color{covercolor}Solution to Python Environment Management\par}
+        \vspace{1cm}
+        {\Large\color{covercolor}Master Python Environment Management for AI/ML: Boost Your Productivity from Beginner to Pro\par}
+        \vspace{2cm}
+        {\large\itshape by\par}
+        \vspace{0.5cm}
+        {\large\bfseries AI/ML Team, Kanaka Software\par}
+        \vfill
+        {\large\today\par}
+    \end{titlepage}
+    \nopagecolor
+}
